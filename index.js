@@ -8,14 +8,17 @@ client.collectDefaultMetrics({ prefix: 'node_', timeout: 5000, register });
 var request = require('request');
 var _metricsResult = [], _nodesResult = [], metricsData = [], clusterKeys = [], clusterValues = [];
 const endpoint = process.env.EMQX_ENDPOINT; 
-const emqxnode = process.env.EMQX_NODE;
+const emqxname = process.env.EMQX_NAME; 
+const emqxhost = process.env.EMQX_HOST;
 const user = process.env.USERNAME, pass = process.env.PASSWORD;
 const gaugeList = []
 var metricValues = [];
 var username = `${user}` , password = `${pass}` , auth = "Basic " + Buffer.from(username + ":" + password).toString("base64");
-
+var emqxnode = `${emqxname}@${emqxhost}`;
+console.log("emqxnode:: ", emqxnode)
 function queryMetrics() {
   var url = `${endpoint}/api/v3/nodes/${emqxnode}/metrics/`;
+  console.log("url:: ", url)
    const options = {
       url: url,
       headers: {

@@ -15,9 +15,10 @@ const gaugeList = []
 var metricValues = [];
 var username = `${user}` , password = `${pass}` , auth = "Basic " + Buffer.from(username + ":" + password).toString("base64");
 var emqxnode = `${emqxname}@${emqxhost}`;
+var emqxVersion = process.env.EMQX_VERSION;
 console.log("emqxnode:: ", emqxnode)
 function queryMetrics() {
-  var url = `${endpoint}/api/v3/nodes/${emqxnode}/metrics/`;
+  var url = `${endpoint}/api/${emqxVersion}/nodes/${emqxnode}/metrics/`;
   console.log("url:: ", url)
    const options = {
       url: url,
@@ -41,7 +42,7 @@ function queryMetrics() {
 }
 
 function queryNodes() {
-   var url = `${endpoint}/api/v3/nodes/${emqxnode}`;
+   var url = `${endpoint}/api/${emqxVersion}/nodes/${emqxnode}`;
    const options = {
       url: url,
       headers: {
